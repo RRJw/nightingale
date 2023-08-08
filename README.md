@@ -72,3 +72,26 @@
 
 ## License
 [Apache License V2.0](https://github.com/didi/nightingale/blob/main/LICENSE)
+
+## 二次开发
+<!-- 告警规则回调修改方式 -->
+<!-- /pkg/poster/post.go 修改post.go PostJSON方法加上请求头168行
+/alert/sender/callback.go 修改告警回调传入参数36行event -->
+
+<!-- 全局告警回调 -->
+/alert/sender/webhook.go
+
+type ReqJson struct {
+	Business           string `json:"business"`
+	Title              string `json:"title"`
+	Host               string
+	Application        string `json:"application"`
+	Application_filter int    `json:"application_filter"`
+	Item               string `json:"item"`
+	Item_value         string `json:"item_value"`
+	AlarmValue         string
+	Content            string `json:"content"`
+	Level              int    `json:"level"`
+	Status             int    `json:"status"`
+	Auto_Recover       int    `json:"auto_Recover"`
+}

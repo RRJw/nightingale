@@ -165,6 +165,7 @@ func PostJSON(url string, timeout time.Duration, v interface{}, retries ...int) 
 	}
 
 	req, err := http.NewRequest("POST", url, bf)
+	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
 		return
 	}

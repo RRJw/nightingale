@@ -12,12 +12,43 @@ import (
 	"github.com/toolkits/pkg/logger"
 )
 
+type ReqJson struct {
+	Business           string `json:"business"`
+	Title              string `json:"title"`
+	Host               string
+	Application        string `json:"application"`
+	Application_filter int    `json:"application_filter"`
+	Item               string `json:"item"`
+	Item_value         string `json:"item_value"`
+	AlarmValue         string
+	Content            string `json:"content"`
+	Level              int    `json:"level"`
+	Status             int    `json:"status"`
+	Auto_Recover       int    `json:"auto_Recover"`
+}
+
 func SendWebhooks(webhooks []*models.Webhook, event *models.AlertCurEvent) {
 	for _, conf := range webhooks {
 		if conf.Url == "" || !conf.Enable {
 			continue
 		}
-		bs, err := json.Marshal(event)
+
+		reqData := ReqJson{
+			Business:           "中台",
+			Title:              "告警标题",
+			Host:               "告警主机",
+			Application:        "告警类别",
+			Application_filter: 2,
+			Item:               "告警项",
+			Item_value:         "监控指标值",
+			AlarmValue:         "告警阈值",
+			Content:            "测试",
+			Level:              1,
+			Status:             1,
+			Auto_Recover:       1,
+		}
+
+		bs, err := json.Marshal(reqData)
 		if err != nil {
 			continue
 		}
